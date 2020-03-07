@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.sql.Date;
 import java.text.DateFormat;
@@ -119,11 +120,11 @@ class JdbcTemplatePublicAuctionTest {
         String description = "description1";
 
         Item itemByName = publicAuction.getItemByDescription(description);
-
         assertEquals(itemByName, item1);
     }
 
     @Test
+    @Sql({"/schema.sql"})
     @DisplayName("Тест метода - Средняя цена лотов каждого пользователя")
     void getAvgItemCost() {
         Map<User, Double> userAndAvgItemCost = new HashMap<>();
@@ -141,6 +142,7 @@ class JdbcTemplatePublicAuctionTest {
     }
 
     @Test
+    @Sql({"/schema.sql"})
     @DisplayName("Тест метода - Максимальный размер имеющихся ставок на каждый лот")
     void getMaxBidsForEveryItem() {
         Map<Item, Bid> itemsAndBids = new HashMap<>();
@@ -176,6 +178,7 @@ class JdbcTemplatePublicAuctionTest {
     }
 
     @Test
+    @Sql({"/schema.sql"})
     @DisplayName("Тест метода - Добавить новый лот")
     void createItem() {
         assertTrue(publicAuction.createItem(item4));

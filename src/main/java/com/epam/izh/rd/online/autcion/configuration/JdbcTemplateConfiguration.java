@@ -3,6 +3,7 @@ package com.epam.izh.rd.online.autcion.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -12,15 +13,11 @@ import javax.sql.DataSource;
 
 @Configuration
 @PropertySource("classpath:application.properties")
+@ComponentScan(basePackages = "com.epam.izh.rd.online.autcion")
 public class JdbcTemplateConfiguration {
 
     @Autowired
     private Environment environment;
-
-    @Bean
-    public JdbcTemplate jdbcTemplate() {
-        return new JdbcTemplate(dataSource());
-    }
 
     @Bean
     public DataSource dataSource() {
@@ -32,4 +29,10 @@ public class JdbcTemplateConfiguration {
 
         return dataSourceBuilder.build();
     }
+
+    @Bean
+    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+    }
+
 }

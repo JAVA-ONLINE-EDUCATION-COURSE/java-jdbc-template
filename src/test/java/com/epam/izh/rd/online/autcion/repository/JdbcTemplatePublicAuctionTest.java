@@ -1,6 +1,7 @@
 package com.epam.izh.rd.online.autcion.repository;
 
 
+import com.epam.izh.rd.online.autcion.configuration.JdbcTemplateConfiguration;
 import com.epam.izh.rd.online.autcion.entity.Bid;
 import com.epam.izh.rd.online.autcion.entity.Item;
 import com.epam.izh.rd.online.autcion.entity.User;
@@ -9,13 +10,16 @@ import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.sql.Date;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -24,6 +28,7 @@ import java.util.Map;
 
 import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.*;
+
 
 @JdbcTest
 @ComponentScan(basePackages = "com.epam.izh.rd.online.autcion")
@@ -53,7 +58,7 @@ class JdbcTemplatePublicAuctionTest {
     private RowMapper<User> userRowMapper;
 
     @BeforeEach
-    private void setup() {
+    private void setup() throws ParseException {
         bid1 = new Bid(1L, transformDate("31.12.2004"), 10.0, 1L, 3L);
         bid2 = new Bid(2L, transformDate("31.12.2004"), 20.0, 1L, 2L);
         bid3 = new Bid(3L, transformDate("31.12.2004"), 30.0, 2L, 3L);
@@ -227,7 +232,7 @@ class JdbcTemplatePublicAuctionTest {
     }
 
     @SneakyThrows
-    private LocalDate transformDate(String string) {
+    private LocalDate transformDate(String string) throws ParseException {
         return new Date(DATE_FORMAT.parse(string).getTime()).toLocalDate();
     }
 }

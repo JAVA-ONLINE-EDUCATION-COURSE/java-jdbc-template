@@ -1,9 +1,9 @@
-package com.epam.izh.rd.online.autcion.repository;
+package com.epam.izh.rd.online.auction.repository;
 
 
-import com.epam.izh.rd.online.autcion.entity.Bid;
-import com.epam.izh.rd.online.autcion.entity.Item;
-import com.epam.izh.rd.online.autcion.entity.User;
+import com.epam.izh.rd.online.auction.entity.Bid;
+import com.epam.izh.rd.online.auction.entity.Item;
+import com.epam.izh.rd.online.auction.entity.User;
 import lombok.SneakyThrows;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.*;
@@ -26,7 +26,7 @@ import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.*;
 
 @JdbcTest
-@ComponentScan(basePackages = "com.epam.izh.rd.online.autcion")
+@ComponentScan(basePackages = "com.epam.izh.rd.online.auction")
 class JdbcTemplatePublicAuctionTest {
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
@@ -169,7 +169,7 @@ class JdbcTemplatePublicAuctionTest {
     void createUser() {
         assertTrue(publicAuction.createUser(user4));
 
-        User dbItem = jdbcTemplate.queryForObject("SELECT * FROM users WHERE user_id=?", userRowMapper, 4);
+        User dbItem = jdbcTemplate.queryForObject("SELECT * FROM users WHERE user_id = ?", userRowMapper, 4);
 
         assertNotNull(dbItem);
         assertEquals(dbItem.getUserId(), user4.getUserId());

@@ -1,4 +1,4 @@
-package com.epam.izh.rd.online.autcion.repository;
+package com.epam.izh.rd.online.auction.repository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @SpringBootTest
-@ComponentScan(basePackages = "com.epam.izh.rd.online.autcion")
+@ComponentScan(basePackages = "com.epam.izh.rd.online.auction")
 public class AppContextTest {
 
     @Autowired
@@ -21,8 +21,8 @@ public class AppContextTest {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    private PublicAuction publicAuction;
+//    @Autowired
+//    private PublicAuction publicAuction;
 
     @Test
     @DisplayName("Бин DataSource успешно создан")

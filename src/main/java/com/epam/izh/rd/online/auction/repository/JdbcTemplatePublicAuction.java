@@ -23,11 +23,18 @@ public class JdbcTemplatePublicAuction implements PublicAuction {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+    @Autowired
+    ItemBidMapper itemBidMapper;
+    @Autowired
+    ItemMapper itemMapper;
+    @Autowired
+    BidMapper bidMapper;
+
 
     @Override
     public List<Bid> getUserBids(long id) {
         String query = "SELECT * FROM bids, items WHERE bids.item_id = items.item_id AND bids.user_id = ?";
-        List<Bid> bids = jdbcTemplate.query(query, new BidMapper(), id);
+        List<Bid> bids = jdbcTemplate.query(query, bidMapper, id);
         return bids;
     }
 
@@ -35,14 +42,14 @@ public class JdbcTemplatePublicAuction implements PublicAuction {
     public List<Item> getUserItems(long id) {
         return jdbcTemplate.query(
                 "SELECT * FROM items WHERE items.user_id = ?",
-                new ItemMapper(), id);
+                itemMapper, id);
     }
 
     @Override
     public Item getItemByName(String name) {
         List<Item> items = jdbcTemplate.query(
                 "SELECT * FROM items WHERE  title LIKE ?",
-                new ItemMapper(), "%" + name + "%");
+                itemMapper, "%" + name + "%");
         return items.get(0);
     }
 
@@ -50,7 +57,7 @@ public class JdbcTemplatePublicAuction implements PublicAuction {
     public Item getItemByDescription(String name) {
         return jdbcTemplate.query(
                 "SELECT * FROM items WHERE  items.description LIKE ?",
-                new ItemMapper(), "%" + name + "%").get(0);
+                itemMapper, "%" + name + "%").get(0);
     }
 
     @Override
@@ -88,7 +95,7 @@ public class JdbcTemplatePublicAuction implements PublicAuction {
                         "ON b.bid_value = bb.bid_value\n" +
                         "JOIN items ON items.item_id = b.item_id";
 
-        return jdbcTemplate.query(query, new ItemBidMapper());
+        return jdbcTemplate.query(query, itemBidMapper);
     }
 
     @Override

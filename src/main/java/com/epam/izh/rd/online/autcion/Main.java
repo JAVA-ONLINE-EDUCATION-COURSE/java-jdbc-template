@@ -3,10 +3,17 @@ package com.epam.izh.rd.online.autcion;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 @SpringBootApplication
 public class Main {
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+       SpringApplication.run(Main.class, args);
+
+
+
     }
 }
 

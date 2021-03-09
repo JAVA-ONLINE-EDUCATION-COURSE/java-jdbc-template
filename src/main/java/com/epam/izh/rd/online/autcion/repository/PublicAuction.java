@@ -3,6 +3,7 @@ package com.epam.izh.rd.online.autcion.repository;
 import com.epam.izh.rd.online.autcion.entity.Bid;
 import com.epam.izh.rd.online.autcion.entity.Item;
 import com.epam.izh.rd.online.autcion.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
 import java.util.List;

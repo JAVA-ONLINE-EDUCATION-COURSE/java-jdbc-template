@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @SpringBootTest
-@ComponentScan(basePackages = "com.epam.izh.rd.online.autcion")
+@ComponentScan(basePackages = "com.epam.izh.rd.online.auction")
 public class AppContextTest {
 
     @Autowired

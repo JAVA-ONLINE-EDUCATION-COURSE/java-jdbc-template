@@ -1,11 +1,48 @@
-create table bids (bid_id bigint not null, bid_date date, bid_value double not null, item_id bigint, user_id bigint, primary key (bid_id))
+CREATE TABLE IF NOT EXISTS users
+(
+    user_id         BIGINT NOT NULL,
+    billing_address VARCHAR(255),
+    full_name       VARCHAR(255),
+    login           VARCHAR(255),
+    password        VARCHAR(255),
+    PRIMARY KEY (user_id)
+);
 
-create table items (item_id bigint not null, bid_increment double not null, buy_it_now boolean not null, description varchar(255), start_date date, start_price double not null, stop_date date, title varchar(255), user_id bigint, primary key (item_id))
+CREATE TABLE IF NOT EXISTS items
+(
+    item_id       BIGINT           NOT NULL,
+    bid_increment DOUBLE PRECISION NOT NULL,
+    buy_it_now    BOOLEAN          NOT NULL,
+    description   VARCHAR(255),
+    start_date    DATE,
+    start_price   DOUBLE PRECISION NOT NULL,
+    stop_date     DATE,
+    title         VARCHAR(255),
+    user_id       BIGINT,
+    PRIMARY KEY (item_id)
+);
 
-create table users (user_id bigint not null, billing_address varchar(255), full_name varchar(255), login varchar(255), password varchar(255), primary key (user_id))
+CREATE TABLE IF NOT EXISTS bids
+(
+    bid_id    BIGINT           NOT NULL,
+    bid_date  DATE,
+    bid_value DOUBLE PRECISION NOT NULL,
+    item_id   BIGINT,
+    user_id   BIGINT,
+    PRIMARY KEY (bid_id)
+);
 
-alter table bids add constraint FKg1mdb2uha9v6t2ujkvlmj3tuq foreign key (item_id) references items
+ALTER TABLE bids
+    ADD CONSTRAINT fk_bids_users
+        FOREIGN KEY (user_id)
+            REFERENCES users (user_id);
 
-alter table bids add constraint FKmb21nl8gr3srgnlch3s18oqv9 foreign key (user_id) references users
+ALTER TABLE bids
+    ADD CONSTRAINT fk_bids_items
+        FOREIGN KEY (item_id)
+            REFERENCES items (item_id);
 
-alter table items add constraint FKft8pmhndq1kntvyfaqcybhxvx foreign key (user_id) references users
+ALTER TABLE items
+    ADD CONSTRAINT fk_items_users
+        FOREIGN KEY (user_id)
+            REFERENCES users (user_id);

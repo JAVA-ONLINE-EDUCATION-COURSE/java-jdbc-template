@@ -8,13 +8,13 @@
 1. Сконфигурировать бины `DataSource` и `JdbcTemplate` в классе `JdbcTemplateConfiguration`. Все необходимые параметры для 
 подключения к БД находятся в `application.properties`.
 
-1. Реализовать методы в классе `JdbcTemplatePublicAuction`. Они должны состоять из SQL-выражений, которые были выполнены в
+2. Реализовать методы в классе `JdbcTemplatePublicAuction`. Они должны состоять из SQL-выражений, которые были выполнены в
 теме SQL, и вызова бина `JdbcTemplate`. Заинжектите этот бин с помощью аннотации `@Autowired`
 
-1. Реализовать бины `BidMapper`, `UserMapper` и `ItemMapper`. Они необходимы для маппинга значений из результатов запросов 
+3. Реализовать бины `BidMapper`, `UserMapper` и `ItemMapper`. Они необходимы для маппинга значений из результатов запросов 
 в классы Bid, User и Item.
 
-1. Для заполнения БД данными используйте файл `data.sql` в директории `src/main/resources`. 
+4. Для заполнения БД данными используйте файл `data.sql` в директории `src/main/resources`. 
 
 Результат выполнения работы можно проверить запустив тест `JdbcTemplatePublicAuctionTest`.
 
